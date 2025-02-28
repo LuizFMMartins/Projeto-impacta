@@ -1,0 +1,146 @@
+<div class="cadastro-container">
+  <h2>Cadastro</h2>
+  <form (ngSubmit)="cadastrar()" #cadastroForm="ngForm">
+    <!-- Nome -->
+    <mat-form-field appearance="fill">
+      <mat-label>Nome</mat-label>
+      <input
+        matInput
+        [(ngModel)]="nome"
+        name="nome"
+        required
+        placeholder="Nome"
+      />
+      <mat-error *ngIf="cadastroForm.submitted && !nome"
+        >Nome é obrigatório</mat-error
+      >
+    </mat-form-field>
+
+    <!-- Senha -->
+    <mat-form-field appearance="fill">
+      <mat-label>Senha</mat-label>
+      <input
+        matInput
+        type="password"
+        [(ngModel)]="senha"
+        name="senha"
+        required
+        placeholder="Senha"
+      />
+      <mat-error *ngIf="cadastroForm.submitted && !senha"
+        >Senha é obrigatória</mat-error
+      >
+    </mat-form-field>
+
+    <!-- Telefone -->
+    <mat-form-field appearance="fill">
+      <mat-label>Telefone</mat-label>
+      <input
+        matInput
+        [(ngModel)]="telefone"
+        name="telefone"
+        required
+        placeholder="Telefone"
+      />
+      <mat-error *ngIf="cadastroForm.submitted && !telefone"
+        >Telefone é obrigatório</mat-error
+      >
+    </mat-form-field>
+
+    <!-- CPF -->
+    <mat-form-field appearance="fill">
+      <mat-label>CPF</mat-label>
+      <input matInput [(ngModel)]="cpf" name="cpf" required placeholder="CPF" />
+      <mat-error *ngIf="cadastroForm.submitted && !cpf"
+        >CPF é obrigatório</mat-error
+      >
+    </mat-form-field>
+
+    <!-- Data de Nascimento -->
+    <mat-form-field appearance="fill">
+      <mat-label>Data de Nascimento</mat-label>
+      <input
+        matInput
+        [matDatepicker]="picker"
+        [(ngModel)]="dataNascimento"
+        name="dataNascimento"
+        required
+        placeholder="Data de Nascimento"
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error *ngIf="cadastroForm.submitted && !dataNascimento"
+        >Data de Nascimento é obrigatória</mat-error
+      >
+    </mat-form-field>
+
+    <!-- Idade -->
+    <mat-form-field appearance="fill">
+      <mat-label>Idade</mat-label>
+      <input matInput [readonly]="true" [value]="calcularIdade()" />
+    </mat-form-field>
+
+    <!-- Campos Opcionais -->
+    <mat-form-field appearance="fill">
+      <mat-label>E-mail</mat-label>
+      <input matInput [(ngModel)]="email" name="email" placeholder="E-mail" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Endereço</mat-label>
+      <input
+        matInput
+        [(ngModel)]="endereco"
+        name="endereco"
+        placeholder="Endereço"
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Sexo</mat-label>
+      <mat-select [(ngModel)]="sexo" name="sexo">
+        <mat-option value="masculino">Masculino</mat-option>
+        <mat-option value="feminino">Feminino</mat-option>
+        <mat-option value="outro">Outro</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <!-- Escolha de Tipo de Usuário -->
+    <div class="mb-3">
+      <label class="form-label">Tipo de Usuário</label>
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="role"
+          id="admin"
+          value="admin"
+          [(ngModel)]="role"
+        />
+        <label class="form-check-label" for="admin"> Administrador </label>
+      </div>
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="role"
+          id="paciente"
+          value="paciente"
+          [(ngModel)]="role"
+        />
+        <label class="form-check-label" for="paciente"> Paciente </label>
+      </div>
+    </div>
+
+    <!-- Botão -->
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [disabled]="!cadastroForm.form.valid"
+    >
+      Cadastrar
+    </button>
+  </form>
+
+  <div *ngIf="mensagemErro" class="error">{{ mensagemErro }}</div>
+</div>

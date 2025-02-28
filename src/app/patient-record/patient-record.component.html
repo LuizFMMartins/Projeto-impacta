@@ -1,0 +1,180 @@
+<!-- Para Admin -->
+<div *ngIf="isAdmin">
+  <div class="container mt-5">
+    <h2>Buscar Prontuário por CPF</h2>
+    <div class="mb-3">
+      <input
+        type="text"
+        [(ngModel)]="cpfPesquisa"
+        (input)="formatarCpf()"
+        placeholder="Digite o CPF do paciente"
+        (keypress)="permitirApenasNumeros($event)"
+        class="form-control"
+        maxlength="14"
+        mask="000.000.000-00"
+      />
+    </div>
+    <button class="btn btn-primary" (click)="buscarProntuario()">Buscar</button>
+  </div>
+
+  <!-- Exibição do prontuário de outro paciente -->
+  <div
+    *ngIf="carregarDados && cpfPesquisa"
+    class="row d-flex justify-content-center"
+  >
+    <div class="row col-8">
+      <h2>Prontuário do Paciente</h2>
+
+      <p><strong>CPF:</strong> {{ paciente.cpf }}</p>
+      <div class="col-12 mb-3">
+        <label class="texto">Nome:</label>
+        <input
+          class="input form-control form-control"
+          type="text"
+          [(ngModel)]="paciente.nome"
+          [disabled]="!editando"
+        />
+      </div>
+      <div class="col-12 mb-3">
+        <label class="texto">Data de Nascimento:</label>
+        <input
+          class="input form-control form-control"
+          type="text"
+          [value]="formatarData(paciente.datanascimento)"
+          disabled
+        />
+      </div>
+      <div class="col-12 mb-3">
+        <label class="texto">Telefone:</label>
+        <input
+          class="input form-control form-control"
+          type="text"
+          [(ngModel)]="paciente.telefone"
+          [disabled]="!editando"
+        />
+      </div>
+      <div class="col-12 mb-3">
+        <label class="texto">Email:</label>
+        <input
+          class="input form-control form-control"
+          type="text"
+          [(ngModel)]="paciente.email"
+          [disabled]="!editando"
+        />
+      </div>
+      <div class="col-12 mb-3">
+        <label class="texto">Endereço:</label>
+        <input
+          class="input form-control form-control"
+          type="text"
+          [(ngModel)]="paciente.endereco"
+          [disabled]="!editando"
+        />
+      </div>
+      <div class="col-12 mb-3">
+        <label class="texto">Sexo:</label>
+        <input
+          class="input form-control form-control"
+          type="text"
+          [(ngModel)]="paciente.sexo"
+          [disabled]="!editando"
+        />
+      </div>
+      <div>
+        <button
+          class="btn btn btn-outline-primary mb-2 btn-lg"
+          *ngIf="!editando"
+          (click)="habilitarEdicao()"
+        >
+          Editar
+        </button>
+        <button
+          class="btn btn btn-outline-primary mb-2 btn-lg"
+          *ngIf="editando"
+          (click)="salvarEdicao()"
+        >
+          Salvar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Para Paciente -->
+
+<div *ngIf="isPaciente" class="row d-flex justify-content-center">
+  <div class="row col-8">
+    <h2>Prontuário do Paciente</h2>
+
+    <p><strong>CPF:</strong> {{ paciente.cpf }}</p>
+    <div class="col-12 mb-3">
+      <label class="texto">Nome:</label>
+      <input
+        class="input form-control form-control"
+        type="text"
+        [(ngModel)]="paciente.nome"
+        [disabled]="!editando"
+      />
+    </div>
+    <div class="col-12 mb-3">
+      <label class="texto">Data de Nascimento:</label>
+      <input
+        class="input form-control form-control"
+        type="text"
+        [value]="formatarData(paciente.datanascimento)"
+        disabled
+      />
+    </div>
+    <div class="col-12 mb-3">
+      <label class="texto">Telefone:</label>
+      <input
+        class="input form-control form-control"
+        type="text"
+        [(ngModel)]="paciente.telefone"
+        [disabled]="!editando"
+      />
+    </div>
+    <div class="col-12 mb-3">
+      <label class="texto">Email:</label>
+      <input
+        class="input form-control form-control"
+        type="text"
+        [(ngModel)]="paciente.email"
+        [disabled]="!editando"
+      />
+    </div>
+    <div class="col-12 mb-3">
+      <label class="texto">Endereço:</label>
+      <input
+        class="input form-control form-control"
+        type="text"
+        [(ngModel)]="paciente.endereco"
+        [disabled]="!editando"
+      />
+    </div>
+    <div class="col-12 mb-3">
+      <label class="texto">Sexo:</label>
+      <input
+        class="input form-control form-control"
+        type="text"
+        [(ngModel)]="paciente.sexo"
+        [disabled]="!editando"
+      />
+    </div>
+    <div>
+      <button
+        class="btn btn btn-outline-primary mb-2 btn-lg"
+        *ngIf="!editando"
+        (click)="habilitarEdicao()"
+      >
+        Editar
+      </button>
+      <button
+        class="btn btn btn-outline-primary mb-2 btn-lg"
+        *ngIf="editando"
+        (click)="salvarEdicao()"
+      >
+        Salvar
+      </button>
+    </div>
+  </div>
+</div>
