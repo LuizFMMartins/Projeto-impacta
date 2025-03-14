@@ -1,0 +1,38 @@
+<div class="calendar-container">
+  <div class="calendar-header">
+    <button (click)="prevMonth()">&#9665;</button>
+    <h2>{{ monthNames[currentMonth] }} {{ currentYear }}</h2>
+    <button (click)="nextMonth()">&#9655;</button>
+  </div>
+  <div class="calendar-grid">
+    <div class="day-name" *ngFor="let day of weekDays">{{ day }}</div>
+    <div
+      *ngFor="let day of calendarDays"
+      class="day"
+      [class.disabled]="day.disabled"
+      [class.selected]="day.date === selectedDay"
+      (click)="selectDay(day)"
+    >
+      {{ day.date }}
+    </div>
+  </div>
+</div>
+
+<!-- Formulário para horário e motivo -->
+<div *ngIf="selectedDay">
+  <h3>
+    Agendar para {{ selectedDay }}/{{ currentMonth + 1 }}/{{ currentYear }}
+  </h3>
+
+  <label>Horário:</label>
+  <input type="time" [(ngModel)]="novoAgendamento.horario" />
+
+  <label>Motivo:</label>
+  <input
+    type="text"
+    [(ngModel)]="novoAgendamento.motivo"
+    placeholder="Digite o motivo da consulta"
+  />
+
+  <button (click)="agendarConsulta()">Agendar</button>
+</div>

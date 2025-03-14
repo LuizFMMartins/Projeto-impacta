@@ -20,6 +20,8 @@ import { AdminHomeComponent } from './admin-home/admin-home.component';
 import { CadastroComponent } from './cadastro/cadastro.component';
 import { MatRadioModule } from '@angular/material/radio';
 import { PatientRecordComponent } from './patient-record/patient-record.component';
+import { AppointmentComponent } from './appointment/appointment.component';
+import { ContactComponent } from './contact/contact.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import { PatientRecordComponent } from './patient-record/patient-record.componen
     HomeComponent,
     NavbarComponent,
     AdminHomeComponent,
-    PatientRecordComponent
+    PatientRecordComponent,
+    AppointmentComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule,

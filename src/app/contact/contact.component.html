@@ -1,0 +1,64 @@
+<div *ngIf="isAdmin" class="container">
+  <div class="bg-light mt-4 p-3">
+    <h2 class="d-flex justify-content-center">Contato</h2>
+    <div class="row">
+      <div>
+        <span>Endereço</span>
+        <input type="text" [(ngModel)]="endereco" class="form-control" />
+      </div>
+      <div>
+        <span>Telefone:</span>
+        <input type="text" [(ngModel)]="telefone" class="form-control" />
+      </div>
+      <div>
+        <span>Whatsapp:</span>
+        <input type="text" [(ngModel)]="whatsapp" class="form-control" />
+      </div>
+      <div>
+        <span>Email:</span>
+        <input type="text" [(ngModel)]="email" class="form-control" />
+      </div>
+    </div>
+    <div class="row">
+      <h2 class="d-flex justify-content-center">Informações:</h2>
+      <textarea
+        [(ngModel)]="informacoes"
+        class="form-control"
+        rows="3"
+      ></textarea>
+    </div>
+    <button (click)="salvarDados()" class="btn btn-primary mt-3">
+      Salvar Alterações
+    </button>
+  </div>
+</div>
+
+<div *ngIf="isPaciente" class="container">
+  <div class="bg-light mt-4 p-3">
+    <h2 class="d-flex justify-content-center">Contato</h2>
+    <div class="row">
+      <div>
+        <span>Endereço</span>
+        <span>{{ endereco }}</span>
+      </div>
+      <div>
+        <span>Telefone:</span>
+        <span>{{ telefone }}</span>
+      </div>
+      <div>
+        <span>Whatsapp:</span>
+        <span>{{ whatsapp }}</span>
+      </div>
+      <div>
+        <span>email:</span>
+        <span>{{ email }}</span>
+      </div>
+    </div>
+    <div class="row">
+      <h2 class="d-flex justify-content-center">Informações:</h2>
+      <span class="d-flex justify-content-center border rounded">
+        {{ informacoes }}
+      </span>
+    </div>
+  </div>
+</div>
