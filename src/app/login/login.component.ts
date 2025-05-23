@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 
@@ -11,8 +11,16 @@ export class LoginComponent {
   cpf: string = '';
   senha: string = '';
   mensagemErro: string = '';
+  mostrarLogin = false;
 
   constructor(private authService: AuthService, private router: Router) { }
+
+  ngOnInit() {
+    // depois de 3 segundos, mostra o login
+    setTimeout(() => {
+      this.mostrarLogin = true;
+    }, 1000);
+  }
 
   login() {
     this.authService.login(this.cpf, this.senha).subscribe(

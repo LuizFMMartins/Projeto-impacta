@@ -7,6 +7,7 @@ import { AdminHomeComponent } from './admin-home/admin-home.component';
 import { PatientRecordComponent } from './patient-record/patient-record.component';
 import { AppointmentComponent } from './appointment/appointment.component';
 import { ContactComponent } from './contact/contact.component';
+import { ConsultasComponent } from './consultas/consultas.component';
 // import { PatientRecordComponent } from './patient-record/patient-record.component';
 
 const routes: Routes = [
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'prontuario', component: PatientRecordComponent },
   { path: 'agendamento', component: AppointmentComponent },
   { path: 'contato', component: ContactComponent },
+  { path: 'consulta', component: ConsultasComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' }
 ];
 

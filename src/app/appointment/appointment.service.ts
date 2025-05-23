@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -16,5 +16,16 @@ export class AppointmentService {
 
   getAgendamentos(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/listar`);
+  }
+  listarConsultas(cpf: string, role: string): Observable<any[]> {
+    const params = new HttpParams()
+      .set('cpf', cpf)
+      .set('role', role);
+
+    return this.http.get<any[]>(`${this.apiUrl}/consultas`, { params });
+  }
+
+  excluirConsulta(id: number) {
+    return this.http.delete(`${this.apiUrl}/${id}`);
   }
 }

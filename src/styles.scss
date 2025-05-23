@@ -5,3 +5,30 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .cor{
   background-image: linear-gradient(to bottom right, rgb(137, 188, 255), rgb(234, 252, 255))
 }
+.fundo{
+
+
+  background-color: #001f4d;
+
+  background-image:
+    url('../src/assets/logo_menu/logoClinica.png'), /* logo no topo */
+    linear-gradient(to right, rgba(255, 255, 255, 0.15) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.15) 1px, transparent 1px);
+
+  background-position:
+    center center, /* logo no centro */
+    0 0,           /* linhas verticais começando no canto */
+    0 0;           /* linhas horizontais começando no canto */
+
+  background-repeat:
+    no-repeat,
+    repeat,
+    repeat;
+
+  background-size:
+  300px,  // aqui diminui a logo, ajuste o valor como quiser
+    40px 40px,//quadrados
+    40px 40px;
+
+
+}

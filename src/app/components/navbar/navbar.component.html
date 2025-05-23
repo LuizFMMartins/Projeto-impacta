@@ -1,6 +1,17 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container">
-    <a class="navbar-brand" routerLink="/home">Sistema Odontológico</a>
+    <img
+      src="../../../assets/logo_login/LOGOCLINICA.png"
+      class="mt-2 img-size"
+      alt="Prontuário"
+      style="max-width: 50px"
+    />
+    <a *ngIf="isAdmin" class="navbar-brand" routerLink="/admin_home"
+      >BRIGHT SMILE</a
+    >
+    <a *ngIf="isPaciente" class="navbar-brand" routerLink="/home"
+      >BRIGHT SMILE</a
+    >
 
     <button
       class="navbar-toggler"
@@ -13,11 +24,14 @@
 
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav me-auto">
-        <li class="nav-item">
+        <li *ngIf="isPaciente" class="nav-item">
           <a class="nav-link" routerLink="/home">Início</a>
         </li>
+        <li *ngIf="isAdmin" class="nav-item">
+          <a class="nav-link" routerLink="/admin_home">Início</a>
+        </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/pacientes">Pacientes</a>
+          <a class="nav-link" routerLink="/prontuario">Pacientes</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="/consultas">Consultas</a>
@@ -25,7 +39,7 @@
       </ul>
 
       <div class="d-flex align-items-center">
-        <span class="me-3 text-white">{{ usuarioNome }}</span>
+        <span class="me-3 text-white">Olá {{ usuarioNome }}</span>
         <button class="btn btn-outline-light btn-sm" (click)="logout()">
           Sair
         </button>

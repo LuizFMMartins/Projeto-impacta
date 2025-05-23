@@ -22,7 +22,8 @@ import { MatRadioModule } from '@angular/material/radio';
 import { PatientRecordComponent } from './patient-record/patient-record.component';
 import { AppointmentComponent } from './appointment/appointment.component';
 import { ContactComponent } from './contact/contact.component';
-
+import { ConsultasComponent } from './consultas/consultas.component';
+import { MatCardModule } from '@angular/material/card';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +34,8 @@ import { ContactComponent } from './contact/contact.component';
     AdminHomeComponent,
     PatientRecordComponent,
     AppointmentComponent,
-    ContactComponent
+    ContactComponent,
+    ConsultasComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +51,8 @@ import { ContactComponent } from './contact/contact.component';
     MatNativeDateModule,
     MatSelectModule,
     MatIconModule,
-    MatRadioModule
+    MatRadioModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

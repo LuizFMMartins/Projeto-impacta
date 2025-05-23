@@ -1,5 +1,7 @@
 <div class="login-container">
-  <div class="login-card">
+  <div class="logo"></div>
+
+  <div class="login-card" [class.show]="mostrarLogin">
     <h2>Login</h2>
     <form (submit)="login()">
       <div class="input-group">
@@ -28,9 +30,7 @@
 
       <button type="submit">Entrar</button>
     </form>
-
     <div *ngIf="mensagemErro" class="error">{{ mensagemErro }}</div>
-
     <p class="cadastro-link">
       Ainda não tem uma conta? <a routerLink="/cadastro">Cadastre-se aqui</a>
     </p>

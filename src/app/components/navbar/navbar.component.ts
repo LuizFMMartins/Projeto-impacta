@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -8,10 +9,19 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
   usuarioNome: string | null = 'Usuário';
-
-  constructor(private router: Router) { }
+  isAdmin: boolean = false;
+  isPaciente: boolean = false;
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+  ) { }
 
   ngOnInit() {
+    const userRole = this.authService.getUserRole();
+    this.isAdmin = userRole === 'admin';
+    this.isPaciente = userRole === 'paciente';
+    console.log('é paciente-----', this.isPaciente)
+    console.log('é adm-----', this.isAdmin)
     this.usuarioNome = localStorage.getItem('usuarioNome') || 'Usuário';
   }
 

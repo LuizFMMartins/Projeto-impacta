@@ -1,6 +1,7 @@
 import { AppointmentService } from './appointment.service';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './../auth.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-appointment',
@@ -12,7 +13,11 @@ export class AppointmentComponent implements OnInit {
   isPaciente: boolean = false;
   userCpf: string = '';
   agendamentos: any[] = [];
-
+  cpfPaciente = '';
+  mensagemErro = '';
+  pacienteEncontrado: any = null;
+  nomePaciente: string | null = null;
+  mostrarAgenda: boolean = false;
   selectedDay: number | null = null; // Armazena o dia selecionado do calendário
 
   novoAgendamento = {
@@ -27,7 +32,9 @@ export class AppointmentComponent implements OnInit {
   weekDays = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
   calendarDays: any[] = [];
 
-  constructor(private authService: AuthService, private appointmentService: AppointmentService) { }
+  constructor(private authService: AuthService, private appointmentService: AppointmentService,
+    private http: HttpClient
+  ) { }
 
   ngOnInit() {
     const userRole = this.authService.getUserRole();
@@ -38,6 +45,10 @@ export class AppointmentComponent implements OnInit {
     if (this.isAdmin) {
       this.carregarAgendamentos();
     }
+    if (this.isPaciente) {
+      this.carregarAgendamentos();
+    }
+
 
     this.generateCalendar();
   }
@@ -97,7 +108,7 @@ export class AppointmentComponent implements OnInit {
 
     const agendamento = {
       ...this.novoAgendamento,
-      pacienteCpf: this.userCpf,
+      pacienteCpf: this.cpfPaciente,
     };
 
     this.appointmentService.agendarConsulta(agendamento).subscribe(
@@ -111,9 +122,40 @@ export class AppointmentComponent implements OnInit {
   }
 
   carregarAgendamentos() {
-    this.appointmentService.getAgendamentos().subscribe(
-      (dados) => (this.agendamentos = dados),
-      () => alert('Erro ao carregar agendamentos.')
-    );
+    if (this.cpfPaciente && this.cpfPaciente.length >= 11) {
+      this.appointmentService.listarConsultas(this.cpfPaciente, this.authService.getUserRole()).subscribe(
+        (dados: any[]) => {
+          this.agendamentos = dados;
+          console.log("dados----", dados)
+          // Pegando nome do paciente se estiver disponível no backend
+          const pacienteInfo = dados.find(d => d.pacientecpf === this.cpfPaciente);
+          if (pacienteInfo && pacienteInfo.nome_paciente) {
+            this.nomePaciente = pacienteInfo.nome_paciente;
+          }
+
+          else {
+            this.nomePaciente = 'Paciente não encontrado';
+          }
+
+          this.mostrarAgenda = true;
+        },
+        error => {
+          console.error('Erro ao buscar agendamentos', error);
+          this.nomePaciente = 'Erro na busca';
+          this.mostrarAgenda = false;
+        }
+      );
+    }
   }
+
+
+
+
+  permitirApenasNumeros(event: KeyboardEvent): void {
+    const charCode = event.charCode;
+    if (charCode < 48 || charCode > 57) {
+      event.preventDefault();
+    }
+  }
+
 }
