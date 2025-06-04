@@ -10,46 +10,53 @@
   <button class="btn btn-primary" (click)="carregarAgendamentos()">
     Buscar Agendamentos
   </button>
-</div>
-<div *ngIf="nomePaciente" class="m-2">
-  <strong>Nome do Paciente:</strong> {{ nomePaciente }}
-</div>
+  <div class="row container d-flex justify-content-center">
+    <div *ngIf="nomePaciente" class="col-12 m-2 text-center">
+      <strong class="text-white">Nome do Paciente:</strong>
+      <p class="text-white">{{ nomePaciente }}</p>
+    </div>
+    <div *ngIf="mostrarAgenda" class="calendar-container col-6">
+      <div class="calendar-header">
+        <button (click)="prevMonth()">&#9665;</button>
+        <h2>{{ monthNames[currentMonth] }} {{ currentYear }}</h2>
+        <button (click)="nextMonth()">&#9655;</button>
+      </div>
+      <div class="calendar-grid m-2">
+        <div class="day-name" *ngFor="let day of weekDays">{{ day }}</div>
+        <div
+          *ngFor="let day of calendarDays"
+          class="day"
+          [class.disabled]="day.disabled"
+          [class.selected]="day.date === selectedDay"
+          (click)="selectDay(day)"
+        >
+          {{ day.date }}
+        </div>
+      </div>
+    </div>
 
-<div *ngIf="mostrarAgenda" class="calendar-container">
-  <div class="calendar-header">
-    <button (click)="prevMonth()">&#9665;</button>
-    <h2>{{ monthNames[currentMonth] }} {{ currentYear }}</h2>
-    <button (click)="nextMonth()">&#9655;</button>
-  </div>
-  <div class="calendar-grid m-2">
-    <div class="day-name" *ngFor="let day of weekDays">{{ day }}</div>
-    <div
-      *ngFor="let day of calendarDays"
-      class="day"
-      [class.disabled]="day.disabled"
-      [class.selected]="day.date === selectedDay"
-      (click)="selectDay(day)"
-    >
-      {{ day.date }}
+    <!-- Formulário para horário e motivo -->
+    <div *ngIf="selectedDay" class="col-6">
+      <h3 class="text-white">
+        Agendar para {{ selectedDay }}/{{ currentMonth + 1 }}/{{ currentYear }}
+      </h3>
+      <div>
+        <label class="text-white mt-3">Horário:</label>
+        <input type="time" [(ngModel)]="novoAgendamento.horario" />
+      </div>
+      <div>
+        <label class="text-white mt-3">Motivo:</label>
+        <textarea
+          class="form-control"
+          rows="3"
+          [(ngModel)]="novoAgendamento.motivo"
+          placeholder="Digite o motivo da consulta"
+        ></textarea>
+      </div>
+
+      <button class="btn btn-primary mt-3" (click)="agendarConsulta()">
+        Agendar
+      </button>
     </div>
   </div>
-</div>
-
-<!-- Formulário para horário e motivo -->
-<div *ngIf="selectedDay">
-  <h3>
-    Agendar para {{ selectedDay }}/{{ currentMonth + 1 }}/{{ currentYear }}
-  </h3>
-
-  <label>Horário:</label>
-  <input type="time" [(ngModel)]="novoAgendamento.horario" />
-
-  <label>Motivo:</label>
-  <input
-    type="text"
-    [(ngModel)]="novoAgendamento.motivo"
-    placeholder="Digite o motivo da consulta"
-  />
-
-  <button (click)="agendarConsulta()">Agendar</button>
 </div>

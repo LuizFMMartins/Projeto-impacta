@@ -1,21 +1,27 @@
 <div class="container" style="padding: 20px">
   <div class="row d-flex justify-content-center">
-    <h2>Consultas Agendadas</h2>
+    <h2 class="text-white">Consultas Agendadas</h2>
 
     <div class="card col-4" *ngFor="let consulta of consultas">
       <div *ngIf="consultas.length === 0">Nenhuma consulta agendada.</div>
       <div style="margin-bottom: 10px; margin-top: 10px">
-        <div>{{ consulta.motivo }}</div>
+        <div>
+          <p>
+            <strong>{{ consulta.motivo }} </strong>
+          </p>
+        </div>
         <div class="row">
           <div class="col-6">
             <p><strong>Paciente:</strong> {{ consulta.nome_paciente }}</p>
-            <p><strong>Data:</strong> {{ consulta.data | date }}</p>
-            <p><strong>Horário:</strong> {{ consulta.horario }}</p>
+            <p>
+              <strong>Data:</strong> {{ consulta.data | date : "dd/MM/yyyy" }}
+            </p>
+            <p><strong>Horário:</strong> {{ consulta.horario.slice(0, 5) }}</p>
           </div>
           <div class="col-6 row">
             <img
               class="col-12"
-              src="../../assets/logo_menu/agenda_logo.png"
+              src="../../assets/logo_menu/consulta_logo.png"
               alt=""
             />
             <button
